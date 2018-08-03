@@ -285,7 +285,7 @@ if 1:
     eb = ttk.Entry(rootb)
     eb.pack()
     eb.focus_set()
-    titleb = ttk.Label(text='ENTER SCALE BAR CONVERSION IN MICRONS')  
+    titleb = ttk.Label(text='ENTER WHAT THE NUMBER OF PIXELS REPRESENTS')  
     titleb.pack()
     bb = ttk.Button(rootb,text='NM',command=lambda:convert(0))
     bb.pack()
