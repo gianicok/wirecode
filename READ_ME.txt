@@ -1,5 +1,5 @@
 #------------------------------------------- https://conda.io/miniconda.html
-#------------------------------------------- download miniconda and then use the conda package manager to install these packages that are  #--------------------------------------------needed to run the code. 
+#------------------------------------------- download miniconda and then use the conda package manager to install these packages that are needed to run the code. 
 
 conda install -c anaconda tk #-------------- Tkinter for GUI's
 conda install -c conda-forge opencv #------- OpenCV for image processing
