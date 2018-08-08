@@ -100,16 +100,7 @@ def filter_pic(picture, sigma, threshold):
     mag = np.sqrt(Gx**2 + Gy**2)                                               
     over = (mag > threshold).astype(int)
     thresh = mag*over  
-    return thresh
-
-def showImgB(image,path,root,value):
-    cv2.imwrite(('gray'+path),ndimage.gaussian_filter(image,value))
-    image = 'gray'+path
-    load = Image.open(image)
-    render = ImageTk.PhotoImage(load)
-    img = tk.Label(root, image=render)
-    img.image = render
-    img.place(x=100, y=100)      
+    return thresh    
 
 def printtext():
     global e, sigma
@@ -123,7 +114,6 @@ def printtext():
     thresh_pic_ax.axis("off")
     thresh_pic.subplots_adjust(left = 0, right = 1, top = 1, bottom = 0)
     plt.draw()    
-    showImgB(image,path,root,value)
 
 def maximum(picture, row, column, L_or_R):                                      
     if L_or_R == "Right":
