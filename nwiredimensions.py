@@ -1,4 +1,3 @@
-from PIL import Image, ImageTk
 from xlwt import Workbook
 from scipy import ndimage
 from tkinter import ttk 
