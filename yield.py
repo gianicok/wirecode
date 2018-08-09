@@ -154,6 +154,8 @@ def mouse_crop(event, x, y, flags, param):
         x_end, y_end = x, y
         cropping = False 
         refPoint = [(x_start, y_start), (x_end, y_end)]
+        cv2.rectangle(cimage, (x_start, y_start), (x_end, y_end), (0, 255, 0), 1)
+        cv2.rectangle(cimage2, (x_start, y_start), (x_end, y_end), (0, 255, 0), 1)
         if len(refPoint) == 2: 
             roi = oriImage[refPoint[0][1]:refPoint[1][1], refPoint[0][0]:refPoint[1][0]]    
             points1.append(refPoint[0][1])
@@ -176,7 +178,7 @@ def createTemplates(image):
         elif cropping == True:
             cv2.rectangle(i, (x_start, y_start), (x_end, y_end), (0, 255, 0), 1)
             cv2.imshow('image', i)
-            templates.append(i) 
+            templates.append(i)        
         key = cv2.waitKey(1)
         if key == ord('q'):
             break     
@@ -194,7 +196,6 @@ def thYield(image,pitch,read,scale):
 
 def loopThrough(image,value, result):
     image=(prepareImage(image))
-    displayImage(image,'hi')
     for i in range(len(points1)):
         template = templates[i]
         template = prepareImage(template)
@@ -226,16 +227,26 @@ def showResult(result,whiteimage,scale):
 if 1:
     #GUI-----------------------------------------------------------------------
     roots = tk.Tk()
-    roots.geometry('600x550')
-    msg3 = ttk.Label(text='')
-    msg3.pack()
+    roots.geometry('600x500')
     title = ttk.Label(text='ENTER IMAGE PATH')  
-    title.place(x=326,y=275)
+    title.pack()
+    msg = ttk.Label(text = 'Use left mouse button to drag from top left to bottom right a template. ')
+    msg.pack()
+    msg1 = ttk.Label(text = 'Make sure the cropped area contains just the nanowire and nothing else.')
+    msg1.pack()
+    space = ttk.Label(text = '')
+    space.pack()
+    rmnd = ttk.Label(text = 'for images where wires are generally the same, grab 5 templates for the first round')
+    rmnd.pack()
+    rmn = ttk.Label(text = 'for images where wires are different, grab 10 templates for the first round')
+    rmn.pack()
+    rn = ttk.Label(text = 'always grab five wires the computer has missed during the second round')
+    rn.pack()
     e = ttk.Entry(roots)
-    e.place(x=314,y=325)
+    e.pack()
     e.focus_set()
     b = ttk.Button(roots,text='ENTER',command=printx)
-    b.place(x=341,y=370)
+    b.pack()
     roots.mainloop()
       
     #TEMPLATE------------------------------------------------------------------
@@ -268,28 +279,28 @@ if 1:
        
     #GUI-----------------------------------------------------------------------
     root = tk.Tk()
-    root.geometry('600x550')
-    e = ttk.Entry(root)
-    e.pack(side = 'right')
-    e.focus_set()
+    root.geometry('500x500')
     title = ttk.Label(text='ENTER PITCH')  
-    title.pack(side = 'left')
+    title.pack()
+    e = ttk.Entry(root)
+    e.pack()
+    e.focus_set()
     b = ttk.Button(root,text='ENTER',command=printtext)
-    b.pack(side='bottom')
+    b.pack()
     root.mainloop()
     
     #GUI-----------------------------------------------------------------------
     scale = pxls(read)
     rootb = tk.Tk()
-    rootb.geometry('600x550')
+    rootb.geometry('500x500')
+    titleb = ttk.Label(text='ENTER WHAT THE NUMBER OF PIXELS REPRESENTS')  
+    titleb.pack()
     eb = ttk.Entry(rootb)
     eb.pack()
     eb.focus_set()
-    titleb = ttk.Label(text='ENTER WHAT THE NUMBER OF PIXELS REPRESENTS')  
-    titleb.pack()
-    bb = ttk.Button(rootb,text='NM',command=lambda:convert(0))
+    bb = ttk.Button(rootb,text='nanometers (NM)',command=lambda:convert(0))
     bb.pack()
-    bb1 = ttk.Button(rootb,text='MM',command=lambda:convert(1))
+    bb1 = ttk.Button(rootb,text='micrometers (UM)',command=lambda:convert(1))
     bb1.pack()
     rootb.mainloop()
     
