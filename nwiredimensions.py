@@ -99,7 +99,7 @@ def filter_pic(picture, sigma, threshold):
     mag = np.sqrt(Gx**2 + Gy**2)                                               
     over = (mag > threshold).astype(int)
     thresh = mag*over  
-    return thresh    
+    return thresh     
 
 def printtext():
     global e, sigma
@@ -185,8 +185,8 @@ def click(event):
         height = ((height - height[0])/scale)/np.sin(np.radians(tilt))
         for i in range(len(height)):
             print (str(abs(height[i])).ljust(15), '\t', diam[i])
-            sheet1.write(count,0,str(diam[i])+' mm')
-            sheet1.write(count,1,str(abs(height[i]))+' mm')
+            sheet1.write(count,0,str(diam[i])+' um')
+            sheet1.write(count,1,str(abs(height[i]))+' um')
             count+=1
             num+=1
             if(height[i-special] == 0):
@@ -201,7 +201,7 @@ def click(event):
     clicks+=1    
     if(clicks == 1):
          print('\n')
-         print("Height (mm)\t\t Diameter (mm)")  
+         print("Height (um)\t\t Diameter (um)")  
 
 #MAIN--------------------------------------------------------------------------
 if 1:
@@ -224,6 +224,8 @@ if 1:
     image = image[0:(image.shape[0]-(image.shape[0]-300)),0:(image.shape[1]-(image.shape[1]-300))]
     msg = ttk.Label(text='ENTER SIGMA')
     msg.pack()
+    rmd = ttk.Label(text='EXIT WHEN YOU FILTERED THE IMAGE CORRECTLY')
+    rmd.pack()
     e = ttk.Entry(root)
     e.pack()
     e.focus_set()
@@ -314,8 +316,9 @@ if 1:
     titleb.pack()
     bb = ttk.Button(rootb,text='NM',command=lambda:convert(0))
     bb.pack()
-    bb1 = ttk.Button(rootb,text='MM',command=lambda:convert(1))
+    bb1 = ttk.Button(rootb,text='UM',command=lambda:convert(1))
     bb1.pack()
+    msg = ttk.Label(text='GRAB POINTS ON WIRES USING THE LEFT CLICK')
     rootb.mainloop()
     print(scale)
        
@@ -329,4 +332,4 @@ if 1:
     plt.draw()    
     
     #GRAB CLICKS---------------------------------------------------------------
-    cid = thresh_pic.canvas.mpl_connect('button_press_event', click) 
+    cid = thresh_pic.canvas.mpl_connect('button_press_event', click)           
